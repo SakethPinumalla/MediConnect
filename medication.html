@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medication Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        body {
+            background-color: #b6fffa;
+        }
+
+        #nav {
+            background-color: #04364a !important;
+        }
+
+        h1 {
+            font-family: "Cabin", sans-serif;
+            text-align: center;
+            color: #04364a;
+        }
+
+        h3 {
+            font-family: 'Afacad', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: 800;
+            color: #363062;
+        }
+
+        .paddin {
+            padding: 10px !important;
+            justify-content: space-evenly;
+        }
+
+        .pp {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 400;
+        }
+
+        #h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 50px;
+        }
+
+        #pa {
+            display: inline-block;
+            color: #7D7C7C;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .medication-tracker {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+            background-color: #d2e0fb;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input {
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #medication-history {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #medication-history th,
+        #medication-history td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #medication-history th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        #medication-history td {
+            transition: background-color 0.3s;
+        }
+
+        #medication-history td:hover {
+            background-color: #f4f4f4;
+        }
+
+        #streak-counter {
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Afacad&family=Anton&family=Bebas+Neue&family=Cabin:wght@600&family=Cinzel:wght@800&family=Dancing+Script:wght@400;500&family=Gabarito&family=Inconsolata&family=Libre+Baskerville:wght@700&family=Nosifer&family=Nunito:wght@300&family=Ubuntu:wght@500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary nav-underline" id="nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: #b6fffa">MediConnect</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" style="color: #b6fffa">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: #b6fffa">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: #b6fffa">
+                            Emergency
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Find a Doctor</a></li>
+                            <li><a class="dropdown-item" href="#">Mental Health</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+    </nav>
+    <div class="medication-tracker" style="background-color: #d2e0fb;">
+        <h2 style="text-align: center;">Medication Entry</h2>
+        <form id="medication-form">
+            <label for="medication-name">Medication Name:</label>
+            <input type="text" id="medication-name" required>
+
+            <label for="dosage">Dosage:</label>
+            <input type="text" id="dosage" required>
+
+            <label for="frequency-per-day">Frequency per Day:</label>
+            <input type="number" id="frequency-per-day" min="1" required>
+
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" required>
+
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" required>
+
+            <button type="button" onclick="addMedication()">Add Medication</button>
+        </form>
+
+        <h2 style="text-align: center;">Medication History</h2>
+        <table id="medication-history">
+            <!-- Medication history table will be populated dynamically -->
+        </table>
+
+        <div id="streak-counter">
+            <p>Current Streak: <span id="streak">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let medicationHistory = [];
+        let currentStreak = 0;
+
+        function addMedication() {
+            const medicationName = document.getElementById('medication-name').value;
+            const dosage = document.getElementById('dosage').value;
+            const frequencyPerDay = document.getElementById('frequency-per-day').valueAsNumber;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Add medication to history
+            const medicationEntry = {
+                name: medicationName,
+                dosage: dosage,
+                frequencyPerDay: frequencyPerDay,
+                startDate: startDate,
+                endDate: endDate,
+                takenSlots: Array(frequencyPerDay).fill(false) // Initialize with false for each slot
+            };
+
+            medicationHistory.push(medicationEntry);
+
+            // Update the medication history table
+            updateMedicationHistoryTable();
+
+            // Reset the form
+            document.getElementById('medication-form').reset();
+
+            // Update streak
+            updateStreak();
+        }
+
+        function updateMedicationHistoryTable() {
+            const table = document.getElementById('medication-history');
+            table.innerHTML = '';
+
+            // Add table headers
+            const headers = ['Medication Name', 'Dosage', 'Frequency per Day', 'Start Date', 'End Date', 'Actions'];
+            const headerRow = table.insertRow();
+            headers.forEach(headerText => {
+                const th = document.createElement('th');
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+
+            // Add medication entries to the table
+            medicationHistory.forEach((entry, index) => {
+                const row = table.insertRow();
+
+                // Populate row cells
+                row.insertCell().textContent = entry.name;
+                row.insertCell().textContent = entry.dosage;
+                row.insertCell().textContent = entry.frequencyPerDay;
+                row.insertCell().textContent = entry.startDate;
+                row.insertCell().textContent = entry.endDate;
+
+                const actionsCell = row.insertCell();
+
+                // Add checkboxes to mark whether the medication was taken
+                entry.takenSlots.forEach((taken, slotIndex) => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = taken;
+                    checkbox.addEventListener('change', function () {
+                        updateTakenStatus(index, slotIndex, this.checked);
+                    });
+                    actionsCell.appendChild(checkbox);
+                });
+            });
+        }
+
+        function updateTakenStatus(medicationIndex, slotIndex, isChecked) {
+            medicationHistory[medicationIndex].takenSlots[slotIndex] = isChecked;
+
+            // Update the medication history table
+            updateMedicationHistoryTable();
+
+            // Update streak
+            updateStreak();
+        }
+
+        function updateStreak() {
+            const currentDate = new Date().toISOString().split('T')[0];
+
+            // Check if the user took medication today
+            const tookMedicationToday = medicationHistory.some(entry =>
+                entry.takenSlots.some(taken => taken)
+            );
+
+            if (tookMedicationToday) {
+                currentStreak++;
+            } else {
+                currentStreak = 0;
+            }
+
+            document.getElementById('streak').textContent = currentStreak;
+        }
+    </script>
+</body>
+
+</html>
